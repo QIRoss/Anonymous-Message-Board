@@ -4,10 +4,9 @@
 	"description": "InfoSec project for freeCodeCamp",
 	"main": "server.js",
 	"scripts": {
-		"start": "node server.js"
+		"start": "nodemon server.js"
 	},
 	"dependencies": {
-		"body-parser": "^1.15.2",
 		"chai": "^4.2.0",
 		"chai-http": "^3.0.0",
 		"cors": "^2.8.1",
@@ -24,5 +23,8 @@
 		"node",
 		"express"
 	],
-	"license": "MIT"
+	"license": "MIT",
+	"devDependencies": {
+		"nodemon": "^2.0.12"
+	}
 }
