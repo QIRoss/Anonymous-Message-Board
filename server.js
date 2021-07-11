@@ -2,7 +2,7 @@
 require('dotenv').config();
 const express     = require('express');
 const cors        = require('cors');
-
+const helmet            = require('helmet');
 const apiRoutes         = require('./routes/api.js');
 const fccTestingRoutes  = require('./routes/fcctesting.js');
 const runner            = require('./test-runner');
@@ -12,9 +12,20 @@ const app = express();
 app.use('/public', express.static(process.cwd() + '/public'));
 
 app.use(cors({origin: '*'})); //For FCC testing purposes only
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use(helmet.dnsPrefetchControl());
+app.use((req, res, next) => {
+  res.set({
+    "Access-Control-Allow-Origin" : "*",
+    "Access-Control-Allow-Headers" : "Origin, X-Requested-With, content-type, Accept",
+    "x-frame-options"             : 'SAMEORIGIN',
+    "referrer-policy"             : 'same-origin'
+  });
+  app.disable('x-powered-by');
+  next();
+});
 
 //Sample front-end
 app.route('/b/:board/')
